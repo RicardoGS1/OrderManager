@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "266211870190",
+    "project_id": "mi-pyme-anabel",
+    "storage_bucket": "mi-pyme-anabel.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266211870190:android:9e970f646bd5c854d07aff",
+        "android_client_info": {
+          "package_name": "com.virtualworld.mipymeanabel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBihW9RmxULT7oHVDWWyLK5GDgHXand1Ek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266211870190:android:075928bb8b17bccbd07aff",
+        "android_client_info": {
+          "package_name": "com.virtualworld.mipymeanabelmaster"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBihW9RmxULT7oHVDWWyLK5GDgHXand1Ek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
