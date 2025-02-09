@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.virtualworld.mipymeanabelmaster.screen.orders.OrdersScreen
+import org.koin.compose.viewmodel.koinViewModel
 
 
 @Composable
@@ -20,7 +21,7 @@ fun AppNavHost(navController: NavHostController, paddingValues: PaddingValues) {
     ) {
 
         composable(RouteOrders.route) {
-            OrdersScreen()
+            OrdersScreen(viewModel = koinViewModel())
         }
 
 
