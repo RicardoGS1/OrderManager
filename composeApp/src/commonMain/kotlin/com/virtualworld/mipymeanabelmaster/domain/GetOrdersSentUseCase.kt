@@ -1,7 +1,7 @@
 package com.virtualworld.mipymeanabelmaster.domain
 
-import com.virtualworld.mipymeanabelmaster.core.NetworkResponseState
-import com.virtualworld.mipymeanabelmaster.core.Product
+import com.virtualworld.mipymeanabelmaster.core.model.NetworkResponseState
+import com.virtualworld.mipymeanabelmaster.core.dto.Product
 import com.virtualworld.mipymeanabelmaster.core.dto.Order
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.firestore.FirebaseFirestore
@@ -31,31 +31,6 @@ class GetOrdersSentUseCase {
 
         } catch (e: Exception) {
             NetworkResponseState.Error(e)
-        }
-    }
-
-
-    fun getOrdersSjent(): Flow<NetworkResponseState<List<Product>>> = flow {
-
-        val firestore: FirebaseFirestore = Firebase.firestore
-
-        try {
-
-            firestore.collection("PRODUCTS").snapshots.collect { querySnapshot ->
-
-                val products = querySnapshot.documents.map { documentSnapshot ->
-                    documentSnapshot.data<Product>()
-                }
-                if (products.isEmpty()) {
-                    println("eeeeeee")
-                    //throw ProductEmptyExceptionee()
-                } else {
-                    emit(NetworkResponseState.Success(products))
-                }
-            }
-
-        } catch (e: Exception) {
-            emit(NetworkResponseState.Error(e))
         }
     }
 
