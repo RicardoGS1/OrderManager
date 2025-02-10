@@ -1,4 +1,4 @@
-package com.virtualworld.mipymeanabelmaster.core
+package com.virtualworld.mipymeanabelmaster.core.model
 
 sealed class NetworkResponseState<out T : Any> {
 
