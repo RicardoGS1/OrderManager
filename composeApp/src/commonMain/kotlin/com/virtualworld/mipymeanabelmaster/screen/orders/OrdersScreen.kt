@@ -38,6 +38,7 @@ fun OrdersScreen(viewModel: OrdersViewModel) {
 
     val ordersSent by viewModel.ordersSent.collectAsState()
 
+
     val listState = rememberLazyGridState()
 
     when (ordersSent) {
