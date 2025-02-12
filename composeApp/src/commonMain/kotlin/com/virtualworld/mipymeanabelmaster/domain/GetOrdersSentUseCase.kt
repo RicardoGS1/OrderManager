@@ -1,17 +1,11 @@
 package com.virtualworld.mipymeanabelmaster.domain
 
-import androidx.compose.animation.core.copy
-import com.virtualworld.mipymeanabelmaster.core.model.NetworkResponseState
 import com.virtualworld.mipymeanabelmaster.core.dto.Order
-import com.virtualworld.mipymeanabelmaster.core.dto.User
-import com.virtualworld.mipymeanabelmaster.core.dto.Users
+import com.virtualworld.mipymeanabelmaster.core.model.NetworkResponseState
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.firestore.FirebaseFirestore
 import dev.gitlive.firebase.firestore.firestore
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flow
 
 class GetOrdersSentUseCase() {

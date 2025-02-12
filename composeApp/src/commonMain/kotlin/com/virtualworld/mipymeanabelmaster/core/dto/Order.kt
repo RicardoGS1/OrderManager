@@ -2,18 +2,6 @@ package com.virtualworld.mipymeanabelmaster.core.dto
 
 import kotlinx.serialization.Serializable
 
-@Serializable
-data class Users(
-
-    val users : List<User> = listOf()
-)
-
-
-@Serializable
-data class User(
-    val uid :String = "",
-    val collectionOrders : List<Order> = listOf()
-)
 
 
 @Serializable

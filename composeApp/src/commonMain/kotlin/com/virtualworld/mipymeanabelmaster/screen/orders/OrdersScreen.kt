@@ -10,8 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -27,10 +27,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import com.virtualworld.mipymeanabelmaster.core.model.NetworkResponseState
-import com.virtualworld.mipymeanabelmaster.core.dto.Order
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import com.virtualworld.mipymeanabelmaster.core.dto.Order
+import com.virtualworld.mipymeanabelmaster.core.model.NetworkResponseState
 
 
 @Composable
@@ -167,7 +167,7 @@ fun ProductItem(order: Order, widthColumnUpdate: (Dp) -> Unit, widthColumn: Dp) 
 
     }
 
-    if(boxWidthDp != 0.dp && widthColumn==500.dp ) {
+    if (boxWidthDp != 0.dp && widthColumn == 500.dp) {
         widthColumnUpdate(boxWidthDp)
     }
 }

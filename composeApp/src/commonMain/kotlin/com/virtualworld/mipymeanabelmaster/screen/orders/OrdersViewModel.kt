@@ -2,24 +2,17 @@ package com.virtualworld.mipymeanabelmaster.screen.orders
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.virtualworld.mipymeanabelmaster.core.model.NetworkResponseState
 import com.virtualworld.mipymeanabelmaster.core.dto.Order
+import com.virtualworld.mipymeanabelmaster.core.model.NetworkResponseState
 import com.virtualworld.mipymeanabelmaster.domain.GetOrdersSentUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class OrdersViewModel(private val getOrdersSent: GetOrdersSentUseCase) : ViewModel() {
 
@@ -38,7 +31,7 @@ class OrdersViewModel(private val getOrdersSent: GetOrdersSentUseCase) : ViewMod
 
         viewModelScope.launch {
 
-          getOrdersSent.getUsersUid().flatMapMerge { uids ->
+            getOrdersSent.getUsersUid().flatMapMerge { uids ->
 
                 if (uids is NetworkResponseState.Success) {
 
@@ -66,8 +59,8 @@ class OrdersViewModel(private val getOrdersSent: GetOrdersSentUseCase) : ViewMod
                     }
                 } else {
 
-                    flow{
-                       emit( NetworkResponseState.Error(Exception("No orders found")) )
+                    flow {
+                        emit(NetworkResponseState.Error(Exception("No orders found")))
                     }
 
                 }
