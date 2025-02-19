@@ -1,33 +1,45 @@
 package com.virtualworld.mipymeanabelmaster.domain
 
-import com.virtualworld.mipymeanabelmaster.core.NetworkResponseState
-import com.virtualworld.mipymeanabelmaster.core.Product
 import com.virtualworld.mipymeanabelmaster.core.dto.Order
+import com.virtualworld.mipymeanabelmaster.core.model.NetworkResponseState
+import com.virtualworld.mipymeanabelmaster.screen.convertMillisToDate
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.firestore.FirebaseFirestore
 import dev.gitlive.firebase.firestore.firestore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class GetOrdersSentUseCase {
+class GetOrdersSentUseCase() {
 
-    fun getOrdersSent(): Flow<NetworkResponseState<List<Order>>> = flow {
+    val firestore: FirebaseFirestore = Firebase.firestore
 
-        val firestore: FirebaseFirestore = Firebase.firestore
+    fun getOrdersSent(uid: String): Flow<NetworkResponseState<List<Order>>> = flow {
+
+        println(uid)
 
         try {
 
-                firestore.collection("orders")
-                    .document("2qhrKw3wDoT0mx4eiZBh69KNf3j1")
-                    .collection("collectionOrders")
-                    .snapshots.collect {
+            println("mmmm")
+            firestore.collection("orders")
+                .document(uid)
+                .collection("collectionOrders")
+                .snapshots.collect {
 
-                        val orders = it.documents.map { documentSnapshot ->
-                            documentSnapshot.data<Order>()
-                                .copy(listOrderProducts = emptyList()) // hay que separar la lista de de la orden proximamente
-                        }
-                        emit(NetworkResponseState.Success(orders))
+                    val orders = it.documents.map { documentSnapshot ->
+                        documentSnapshot.data<Order>()
+                            .copy(
+                                listOrderProducts = emptyList(),
+                                dateOrder = convertMillisToDate(documentSnapshot.data<Order>().dateOrder.toLong()),
+                                dateDelivery = convertMillisToDate(documentSnapshot.data<Order>().dateDelivery.toLong())
+                            ) // hay que separar la lista de de la orden proximamente
                     }
+
+
+
+
+                    emit(NetworkResponseState.Success(orders))
+                }
+
 
         } catch (e: Exception) {
             NetworkResponseState.Error(e)
@@ -35,28 +47,26 @@ class GetOrdersSentUseCase {
     }
 
 
-    fun getOrdersSjent(): Flow<NetworkResponseState<List<Product>>> = flow {
+    fun getUsersUid(): Flow<NetworkResponseState<List<String>>> = flow {
 
-        val firestore: FirebaseFirestore = Firebase.firestore
 
         try {
 
-            firestore.collection("PRODUCTS").snapshots.collect { querySnapshot ->
+            firestore.collection("orders")
+                .snapshots.collect {
 
-                val products = querySnapshot.documents.map { documentSnapshot ->
-                    documentSnapshot.data<Product>()
+                    val listuid = it.documents.map { documentSnapshot ->
+                        documentSnapshot.id
+
+                    }
+
+                    emit(NetworkResponseState.Success(listuid))
                 }
-                if (products.isEmpty()) {
-                    println("eeeeeee")
-                    //throw ProductEmptyExceptionee()
-                } else {
-                    emit(NetworkResponseState.Success(products))
-                }
-            }
 
         } catch (e: Exception) {
-            emit(NetworkResponseState.Error(e))
+            NetworkResponseState.Error(e)
         }
+
     }
 
 

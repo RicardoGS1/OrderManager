@@ -1,4 +1,4 @@
-package com.virtualworld.mipymeanabelmaster.core
+package com.virtualworld.mipymeanabelmaster.core.dto
 
 import kotlinx.serialization.Serializable
 
