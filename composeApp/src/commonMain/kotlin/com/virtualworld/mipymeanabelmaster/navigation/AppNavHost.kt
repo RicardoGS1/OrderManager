@@ -24,8 +24,8 @@ fun AppNavHost(navController: NavHostController, paddingValues: PaddingValues) {
         modifier = Modifier.padding(paddingValues)
     ) {
 
-        val onOrderClicked: (String) -> Unit = { orderId ->
-            navController.navigateToDetailDestination(RouteDetails.route + "/$orderId")
+        val onOrderClicked: (String, String) -> Unit = { orderId, uid ->
+            navController.navigateToDetailDestination(orderId, uid)
         }
 
         composable(RouteOrders.route) {
@@ -33,12 +33,15 @@ fun AppNavHost(navController: NavHostController, paddingValues: PaddingValues) {
         }
 
         composable(
-            RouteDetails.route + "/{orderId}",
-            arguments = listOf(navArgument("orderId") { type = NavType.StringType })
+            RouteDetails.route + "/{orderId}/{uid}",
+            arguments = listOf(
+                navArgument("orderId") { type = NavType.StringType },
+                navArgument("uid") { type = NavType.StringType })
         ) { navBackStackEntry ->
 
             val orderId = navBackStackEntry.arguments?.getString("orderId")
-            DetailsScreen(viewModel = koinViewModel(parameters = { parametersOf(orderId) }))
+            val uid = navBackStackEntry.arguments?.getString("uid")
+            DetailsScreen(viewModel = koinViewModel(parameters = { parametersOf(orderId, uid) }))
         }
 
 

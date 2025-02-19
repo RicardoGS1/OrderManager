@@ -1,12 +1,12 @@
 package com.virtualworld.mipymeanabelmaster.navigation
 
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 
 
-
-fun NavController.navigateToDetailDestination(screen: String) {
-
-    navigate(screen) {
+fun NavHostController.navigateToDetailDestination(orderId: String, uid: String) {
+    this.navigate(RouteDetails.route + "/$orderId/$uid")
+ {
         saveState()
     }
 
