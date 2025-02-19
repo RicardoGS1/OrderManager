@@ -15,6 +15,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -33,7 +34,7 @@ import com.virtualworld.mipymeanabelmaster.core.model.NetworkResponseState
 
 
 @Composable
-fun OrdersScreen(viewModel: OrdersViewModel) {
+fun OrdersScreen(viewModel: OrdersViewModel, onOrderClicked: (String) -> Unit) {
 
     val ordersSent by viewModel.ordersSent.collectAsState()
 
@@ -46,7 +47,7 @@ fun OrdersScreen(viewModel: OrdersViewModel) {
 
         is NetworkResponseState.Success -> {
             val orders = (ordersSent as NetworkResponseState.Success<List<Order>>).result
-            ColumnOrder(orders)
+            ColumnOrder(orders,onOrderClicked)
         }
 
         is NetworkResponseState.Error -> {
@@ -59,7 +60,7 @@ fun OrdersScreen(viewModel: OrdersViewModel) {
 }
 
 @Composable
-fun ColumnOrder(listOrders: List<Order>) {
+fun ColumnOrder(listOrders: List<Order>, onOrderClicked: (String) -> Unit) {
 
     var widthColum by remember { mutableStateOf(0.dp) }
     val density = LocalDensity.current
@@ -78,7 +79,7 @@ fun ColumnOrder(listOrders: List<Order>) {
         ) {
 
             items(listOrders, key = { it.number }) {
-                ProductItem(order = it,widthColum)
+                ProductItem(order = it,widthColum,onOrderClicked)
             }
         }
     }
@@ -105,7 +106,7 @@ fun InfoColum( widthColum: Dp) {
 
 
             Text(
-                modifier = Modifier.width(widthColum),
+                modifier = Modifier.width(widthColum/1.5f),
                 text = "Codigo",
                 maxLines = 1,
                 //textAlign = TextAlign.End,
@@ -117,7 +118,7 @@ fun InfoColum( widthColum: Dp) {
 
 
             Text(
-                modifier = Modifier.width(widthColum),
+                modifier = Modifier.width(widthColum/1.5f),
                 text = "Estado",
                 maxLines = 1,
                 //textAlign = TextAlign.End,
@@ -149,6 +150,16 @@ fun InfoColum( widthColum: Dp) {
                 fontWeight = FontWeight.Light,
             )
 
+            Text(
+                modifier = Modifier.width(widthColum),
+                text = "Editar",
+                maxLines = 1,
+                //textAlign = TextAlign.End,
+
+                // color = Color.Red.copy(alpha = 0.8f),
+                fontWeight = FontWeight.Light,
+            )
+
         }
     }
 
@@ -156,7 +167,7 @@ fun InfoColum( widthColum: Dp) {
 
 
 @Composable
-fun ProductItem(order: Order, widthColum: Dp) {
+fun ProductItem(order: Order, widthColum: Dp, onOrderClicked: (String) -> Unit) {
 
     Box() {
 
@@ -189,7 +200,7 @@ fun ProductItem(order: Order, widthColum: Dp) {
 
 
                 Text(
-                    modifier = Modifier.width(widthColum),
+                    modifier = Modifier.width(widthColum/1.5f),
                     text = order.number,
                     maxLines = 1,
                     //textAlign = TextAlign.End,
@@ -199,7 +210,7 @@ fun ProductItem(order: Order, widthColum: Dp) {
 
 
                 Text(
-                    modifier = Modifier.width(widthColum),
+                    modifier = Modifier.width(widthColum/1.5f),
                     text = order.state,
                     maxLines = 1,
                     //textAlign = TextAlign.End,
@@ -230,6 +241,13 @@ fun ProductItem(order: Order, widthColum: Dp) {
                     //color = Color.Red.copy(alpha = 0.8f),
                     fontWeight = FontWeight.Bold,
                 )
+                TextButton(
+                    onClick = {onOrderClicked(order.number)},
+                    modifier = Modifier.width(widthColum),
+
+                ){
+                    Text("Editar")
+                }
             }
         }
     }
