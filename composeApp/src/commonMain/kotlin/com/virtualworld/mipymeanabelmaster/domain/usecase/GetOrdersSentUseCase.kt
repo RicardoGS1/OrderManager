@@ -28,6 +28,7 @@ class GetOrdersSentUseCase() {
                     val orders = it.documents.map { documentSnapshot ->
                         documentSnapshot.data<Order>()
                             .copy(
+                                uid = uid,
                                 listOrderProducts = emptyList(),
                                 dateOrder = convertMillisToDate(documentSnapshot.data<Order>().dateOrder.toLong()),
                                 dateDelivery = convertMillisToDate(documentSnapshot.data<Order>().dateDelivery.toLong())
