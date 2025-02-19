@@ -1,8 +1,8 @@
-package com.virtualworld.mipymeanabelmaster.domain
+package com.virtualworld.mipymeanabelmaster.domain.usecase
 
 import com.virtualworld.mipymeanabelmaster.core.dto.Order
 import com.virtualworld.mipymeanabelmaster.core.model.NetworkResponseState
-import com.virtualworld.mipymeanabelmaster.screen.convertMillisToDate
+import com.virtualworld.mipymeanabelmaster.screen.utils.convertMillisToDate
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.firestore.FirebaseFirestore
 import dev.gitlive.firebase.firestore.firestore

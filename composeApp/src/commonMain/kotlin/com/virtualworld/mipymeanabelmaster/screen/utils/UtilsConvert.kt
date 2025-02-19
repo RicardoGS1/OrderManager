@@ -1,4 +1,4 @@
-package com.virtualworld.mipymeanabelmaster.screen
+package com.virtualworld.mipymeanabelmaster.screen.utils
 
 import kotlin.math.pow
 import kotlin.math.round

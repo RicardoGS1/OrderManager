@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.virtualworld.mipymeanabelmaster.core.dto.Order
 import com.virtualworld.mipymeanabelmaster.core.model.NetworkResponseState
-import com.virtualworld.mipymeanabelmaster.domain.GetOrdersSentUseCase
+import com.virtualworld.mipymeanabelmaster.domain.usecase.GetOrdersSentUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -72,5 +72,16 @@ class OrdersViewModel(private val getOrdersSent: GetOrdersSentUseCase) : ViewMod
         }
 
     }
+
+   fun  onItemClick(number:String){
+
+
+
+
+   }
+
+
+
+
 
 }
