@@ -28,7 +28,7 @@ fun TopBarView(scrollBehavior: TopAppBarScrollBehavior, navController: NavHostCo
             title = { Text(text = currentTitle) },
             scrollBehavior = scrollBehavior,
             navigationIcon = {
-                if (currentRoute == RouteDetails.route + "/{orderId}") {
+                if (currentRoute == RouteDetails.route + "/{orderId}/{uid}") {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
