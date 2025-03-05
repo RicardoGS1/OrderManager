@@ -34,8 +34,6 @@ fun main() = application {
         projectId = "mi-pyme-anabel",
         applicationId = "1:266211870190:web:8a80eb6f53a24596d07aff",
         apiKey = "AIzaSyCl8dFoSNcit6hNPp34NLElAFh4rlO_S7g",
-
-
         )
 
     Firebase.initialize(Application(), options)

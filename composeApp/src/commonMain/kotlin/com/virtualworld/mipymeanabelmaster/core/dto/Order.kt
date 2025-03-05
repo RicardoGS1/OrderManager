@@ -7,6 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Order(
 
+    val uid: String = "",
     val name: String = "",
     val email: String = "",
     val number : String = "",

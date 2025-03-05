@@ -34,7 +34,7 @@ import com.virtualworld.mipymeanabelmaster.core.model.NetworkResponseState
 
 
 @Composable
-fun OrdersScreen(viewModel: OrdersViewModel, onOrderClicked: (String) -> Unit) {
+fun OrdersScreen(viewModel: OrdersViewModel, onOrderClicked: (String, String) -> Unit) {
 
     val ordersSent by viewModel.ordersSent.collectAsState()
 
@@ -60,7 +60,7 @@ fun OrdersScreen(viewModel: OrdersViewModel, onOrderClicked: (String) -> Unit) {
 }
 
 @Composable
-fun ColumnOrder(listOrders: List<Order>, onOrderClicked: (String) -> Unit) {
+fun ColumnOrder(listOrders: List<Order>, onOrderClicked: (String, String) -> Unit) {
 
     var widthColum by remember { mutableStateOf(0.dp) }
     val density = LocalDensity.current
@@ -167,7 +167,7 @@ fun InfoColum( widthColum: Dp) {
 
 
 @Composable
-fun ProductItem(order: Order, widthColum: Dp, onOrderClicked: (String) -> Unit) {
+fun ProductItem(order: Order, widthColum: Dp, onOrderClicked: (String, String) -> Unit) {
 
     Box() {
 
@@ -242,7 +242,7 @@ fun ProductItem(order: Order, widthColum: Dp, onOrderClicked: (String) -> Unit) 
                     fontWeight = FontWeight.Bold,
                 )
                 TextButton(
-                    onClick = {onOrderClicked(order.number)},
+                    onClick = {onOrderClicked(order.number,order.uid)},
                     modifier = Modifier.width(widthColum),
 
                 ){
