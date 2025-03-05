@@ -31,11 +31,18 @@ kotlin {
             //NETWORK
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.contentnegotiation)
-            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.ktor.client.java)
+            implementation(libs.ktor.serialization.json)
+
+            //NOTIFICATIONS FCM
+            implementation(libs.google.auth)
+            implementation(libs.google.api.client)
+            implementation(libs.google.http.jackson2)
 
             //FIREBASE
             implementation(libs.gitlive.firebase.firestore)
             implementation(libs.gitlive.firebase.auth)
+
 
             //COIL
             implementation(libs.coil.compose)
