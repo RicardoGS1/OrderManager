@@ -32,4 +32,13 @@ class OrderRepository(private val firestoreDataSourceImp: FirestoreDataSourceImp
 
     }
 
+    fun updateOrderState(newState: String, number: String, uid: String): Flow<NetworkResponseState<Boolean>> {
+
+
+       return firestoreDataSourceImp.updateOrderState(newState,number,uid)
+
+    }
+
+
+
 }

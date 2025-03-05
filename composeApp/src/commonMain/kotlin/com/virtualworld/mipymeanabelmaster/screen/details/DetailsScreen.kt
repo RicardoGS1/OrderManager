@@ -49,7 +49,7 @@ import com.virtualworld.mipymeanabelmaster.core.dto.OrderProducts
 fun DetailsScreen(viewModel: DetailsViewModel) {
 
     val orderState by viewModel.orderState.collectAsStateWithLifecycle()
-    val onOrderStateChanged = { state: String -> }
+    val onOrderStateChanged = { state: String -> viewModel.updateOrderState(state) }
 
     Column(
         modifier = Modifier
