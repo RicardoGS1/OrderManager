@@ -52,10 +52,7 @@ fun DetailsScreen(viewModel: DetailsViewModel) {
     val onOrderStateChanged = { state: String -> viewModel.updateOrderState(state) }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-        // .verticalScroll(rememberScrollState())
+        modifier = Modifier.fillMaxSize().padding(16.dp)
     ) {
         Text(
             text = "Order Number: ${orderState.number}",
@@ -66,8 +63,7 @@ fun DetailsScreen(viewModel: DetailsViewModel) {
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             StateSelector(
-                currentStatus = orderState.state,
-                onOrderStateChanged = onOrderStateChanged
+                currentStatus = orderState.state, onOrderStateChanged = onOrderStateChanged
             )
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -122,23 +118,18 @@ fun DetailsScreen(viewModel: DetailsViewModel) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun StateSelector(currentStatus: String, onOrderStateChanged: (String) -> Unit) {
 
-    val options = listOf("Enviada", "Procesando", "Lista", "Cancelada")
+    val options = listOf("Recibida", "Procesando", "Lista", "Completada", "Cancelada")
     var expanded by remember { mutableStateOf(false) }
 
 
-    Row(
-        modifier = Modifier
-            .clip(RoundedCornerShape(4.dp))
-            .border(1.dp, Color.Gray, RoundedCornerShape(4.dp))
-            .clickable { expanded = !expanded }
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-            .width(100.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
+    Row(modifier = Modifier.clip(RoundedCornerShape(4.dp))
+        .border(1.dp, Color.Gray, RoundedCornerShape(4.dp)).clickable { expanded = !expanded }
+        .padding(horizontal = 16.dp, vertical = 8.dp).width(100.dp),
+        verticalAlignment = Alignment.CenterVertically) {
         Text(
             text = currentStatus,
             style = MaterialTheme.typography.bodyMedium,
@@ -149,18 +140,12 @@ fun StateSelector(currentStatus: String, onOrderStateChanged: (String) -> Unit) 
             contentDescription = "Dropdown",
             modifier = Modifier.size(24.dp)
         )
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false }
-        ) {
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             options.forEach { selectionOption ->
-                DropdownMenuItem(
-                    text = { Text(selectionOption) },
-                    onClick = {
-                        expanded = false
-                        onOrderStateChanged(selectionOption)
-                    }
-                )
+                DropdownMenuItem(text = { Text(selectionOption) }, onClick = {
+                    expanded = false
+                    onOrderStateChanged(selectionOption)
+                })
             }
         }
     }
@@ -172,14 +157,11 @@ fun ProductItem(product: OrderProducts) {
 
 
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
+        modifier = Modifier.fillMaxWidth().padding(8.dp),
         //elevation = 4.dp
     ) {
         Row(
-            modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
+            modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
                 model = product.image,
@@ -205,8 +187,7 @@ fun ProductItem(product: OrderProducts) {
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Unit: ${product.unit}",
-                    style = MaterialTheme.typography.bodyMedium
+                    text = "Unit: ${product.unit}", style = MaterialTheme.typography.bodyMedium
                 )
             }
         }
