@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -39,7 +40,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
@@ -52,23 +55,33 @@ fun DetailsScreen(viewModel: DetailsViewModel) {
     val onOrderStateChanged = { state: String -> viewModel.updateOrderState(state) }
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp)
+        modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp)
     ) {
-        Text(
-            text = "Order Number: ${orderState.number}",
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(modifier = Modifier.height(8.dp))
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+
+            Text(
+                text = "Codigo de orden: ${orderState.number}",
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.Bold
+            )
+
             StateSelector(
                 currentStatus = orderState.state, onOrderStateChanged = onOrderStateChanged
             )
-            Spacer(modifier = Modifier.height(8.dp))
+        }
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
 
             Text(
-                text = "Order Date: ${orderState.dateOrder}",
+                text = "Unidades Totales: ${orderState.unitTotal}",
+                style = MaterialTheme.typography.bodyLarge
+            )
+
+            Text(
+                text = "Emitida el: ${orderState.dateOrder}",
                 style = MaterialTheme.typography.bodyLarge
             )
         }
@@ -84,29 +97,29 @@ fun DetailsScreen(viewModel: DetailsViewModel) {
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Delivery Date: ${orderState.dateDelivery}",
+                text = "Entregar el: ${orderState.dateDelivery}",
                 style = MaterialTheme.typography.bodyLarge
             )
         }
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            text = "Total Import (MN): ${orderState.importTotalMN}",
-            style = MaterialTheme.typography.bodyLarge
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = "Total Units: ${orderState.unitTotal}",
-            style = MaterialTheme.typography.bodyLarge
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = "Products:",
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(modifier = Modifier.height(8.dp))
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+
+            Text(
+                text = "Products:",
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.Bold
+            )
+
+            Text(
+                text = "Correo: ${orderState.email}",
+                style = MaterialTheme.typography.bodyLarge
+            )
+
+
+        }
+        Spacer(modifier = Modifier.height(4.dp))
 
         LazyColumn(
             modifier = Modifier.fillMaxWidth()
@@ -125,32 +138,40 @@ fun StateSelector(currentStatus: String, onOrderStateChanged: (String) -> Unit) 
     val options = listOf("Recibida", "Procesando", "Lista", "Completada", "Cancelada")
     var expanded by remember { mutableStateOf(false) }
 
+    Row(verticalAlignment = Alignment.CenterVertically) {
 
-    Row(modifier = Modifier.clip(RoundedCornerShape(4.dp))
-        .border(1.dp, Color.Gray, RoundedCornerShape(4.dp)).clickable { expanded = !expanded }
-        .padding(horizontal = 16.dp, vertical = 8.dp).width(100.dp),
-        verticalAlignment = Alignment.CenterVertically) {
         Text(
-            text = currentStatus,
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.weight(1f)
+            text = "Estado:  ",
+            style = MaterialTheme.typography.headlineSmall,
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Bold
         )
-        Icon(
-            imageVector = Icons.Filled.ArrowDropDown,
-            contentDescription = "Dropdown",
-            modifier = Modifier.size(24.dp)
-        )
-        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-            options.forEach { selectionOption ->
-                DropdownMenuItem(text = { Text(selectionOption) }, onClick = {
-                    expanded = false
-                    onOrderStateChanged(selectionOption)
-                })
+
+        Row(modifier = Modifier.clip(RoundedCornerShape(4.dp))
+            .border(1.dp, Color.Gray, RoundedCornerShape(4.dp)).clickable { expanded = !expanded }
+            .padding(horizontal = 16.dp, vertical = 8.dp).width(100.dp),
+            verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                text = currentStatus,
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.weight(1f)
+            )
+            Icon(
+                imageVector = Icons.Filled.ArrowDropDown,
+                contentDescription = "Dropdown",
+                modifier = Modifier.size(24.dp)
+            )
+            DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+                options.forEach { selectionOption ->
+                    DropdownMenuItem(text = { Text(selectionOption) }, onClick = {
+                        expanded = false
+                        onOrderStateChanged(selectionOption)
+                    })
+                }
             }
         }
     }
 }
-
 
 @Composable
 fun ProductItem(product: OrderProducts) {
@@ -158,16 +179,25 @@ fun ProductItem(product: OrderProducts) {
 
     Card(
         modifier = Modifier.fillMaxWidth().padding(8.dp),
-        //elevation = 4.dp
     ) {
         Row(
             modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically
         ) {
+
+
             AsyncImage(
                 model = product.image,
                 contentDescription = product.name,
-                modifier = Modifier.size(64.dp)
+                modifier = Modifier.size(120.dp)
+                    .clip(MaterialTheme.shapes.small)
+                    .border(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
+                        shape = MaterialTheme.shapes.small
+                    ),
+                contentScale = ContentScale.Crop,
             )
+
             Spacer(modifier = Modifier.width(16.dp))
             Column {
                 Text(
@@ -175,11 +205,7 @@ fun ProductItem(product: OrderProducts) {
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Price (MN): ${product.priceMn}",
-                    style = MaterialTheme.typography.bodyMedium
-                )
+
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "Price (USD): ${product.priceUsd}",
@@ -188,6 +214,12 @@ fun ProductItem(product: OrderProducts) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "Unit: ${product.unit}", style = MaterialTheme.typography.bodyMedium
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "Impotre total: ${product.priceUsd.toFloat() * product.unit.toFloat()}",
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
         }

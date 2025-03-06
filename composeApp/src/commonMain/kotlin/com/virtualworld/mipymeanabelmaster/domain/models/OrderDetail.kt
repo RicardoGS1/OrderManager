@@ -1,9 +1,11 @@
 package com.virtualworld.mipymeanabelmaster.domain.models
 
 import com.virtualworld.mipymeanabelmaster.core.dto.OrderProducts
+import dev.gitlive.firebase.auth.ActionCodeResult
 
 data class OrderDetail(
 
+    val email: String ="",
     val number : String = "",
     val state : String = "",
     val dateOrder: String = "",
