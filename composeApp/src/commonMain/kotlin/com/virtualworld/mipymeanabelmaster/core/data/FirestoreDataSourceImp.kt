@@ -76,7 +76,7 @@ class FirestoreDataSourceImp(private val notificationSender: NotificationSender)
                 if(token != null) {
                     notificationSender.sendNotification(
                         token = token!!,
-                        title = "en estado de su orden $code a cambiado",
+                        title = "El estado de su orden $code cambio a",
                         body = newState
                     )
 

@@ -149,7 +149,7 @@ fun StateSelector(currentStatus: String, onOrderStateChanged: (String) -> Unit) 
 
         Row(modifier = Modifier.clip(RoundedCornerShape(4.dp))
             .border(1.dp, Color.Gray, RoundedCornerShape(4.dp)).clickable { expanded = !expanded }
-            .padding(horizontal = 16.dp, vertical = 8.dp).width(100.dp),
+            .padding(horizontal = 16.dp, vertical = 8.dp).width(120.dp),
             verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = currentStatus,
