@@ -58,7 +58,7 @@ class NotificationSender {
     }
 
 
-    fun sendNotification(token: String, title: String, body: String) {
+    fun sendNotification(token: String, code: String, state: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
 
@@ -80,15 +80,11 @@ class NotificationSender {
                                 put("token", token)
 
                                 putJsonObject("notification") {
-                                    put("title", title)
-                                    put("body", body) // Cambiado "text" a "body"
+                                    put("title", "El estado de su orden $code cambio a")
+                                    put("body", state) // Cambiado "text" a "body"
                                 }
                                 putJsonObject("data") {
-                                    put("priority", "high")
-                                    put("customId", "02")
-                                    put("badge", "1")
-                                    put("sound", "")
-                                    put("alert", "Alert")
+                                    put("code", code)
                                 }
                             }
                         }.also { println("Cuerpo de la Solicitud: $it") })

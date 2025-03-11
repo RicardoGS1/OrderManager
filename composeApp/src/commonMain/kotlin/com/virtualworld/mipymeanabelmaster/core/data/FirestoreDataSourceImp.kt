@@ -19,7 +19,6 @@ class FirestoreDataSourceImp(private val notificationSender: NotificationSender)
         return flow {
 
             try {
-
                 firestore.collection("orders")
                     .document(uid)
                     .collection("collectionOrders")
@@ -35,7 +34,6 @@ class FirestoreDataSourceImp(private val notificationSender: NotificationSender)
                 NetworkResponseState.Error(e)
             }
 
-
         }
 
     }
@@ -48,21 +46,17 @@ class FirestoreDataSourceImp(private val notificationSender: NotificationSender)
     ): Flow<NetworkResponseState<Boolean>> {
 
 
-
-
-
-
         return flow {
 
             try {
 
                 var token: String? = null
 
-               val documentSnapshot = firestore.collection("orders")
+                val documentSnapshot = firestore.collection("orders")
                     .document(uid).get()
 
                 if (documentSnapshot.exists) {
-                     token = documentSnapshot.get("token") as? String
+                    token = documentSnapshot.get("token") as? String
                 }
 
 
@@ -73,16 +67,14 @@ class FirestoreDataSourceImp(private val notificationSender: NotificationSender)
                     .update(mapOf("state" to newState))
 
 
-                if(token != null) {
+                if (token != null) {
                     notificationSender.sendNotification(
                         token = token!!,
-                        title = "en estado de su orden $code a cambiado",
-                        body = newState
+                        code = code,
+                        state = newState
                     )
 
-                    println(token+newState)
                 }
-
 
 
                 emit(NetworkResponseState.Success(true))

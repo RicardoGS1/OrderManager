@@ -8,6 +8,7 @@ import com.virtualworld.mipymeanabelmaster.screen.utils.convertMillisToDate
 fun Order.toOrderDetail(): OrderDetail {
 
     val orderDetail = OrderDetail(
+        email = this.email,
         number = this.number,
         state = this.state,
         dateOrder = convertMillisToDate( this.dateOrder.toLong()),
